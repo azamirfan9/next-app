@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Sidebar from './components/navigation/Sidebar';
+import Header from './components/navigation/Header';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,12 +25,31 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+  const isAuthenticated = false;
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* <Header />
+        <Sidebar />*/}
+        {/* {children}  */}
+          {isAuthenticated ? (
+              <div className="flex">
+                <>
+                  <Header />
+                  <Sidebar />
+                </>
+                <main className={`mt-8 ml-0 md:ml-64 transition-all duration-300 ease-in-out`}>
+                  {children}
+                </main>
+              </div>
+            ) : (
+              <div>
+                {children}
+              </div>
+            )}
       </body>
     </html>
   );
