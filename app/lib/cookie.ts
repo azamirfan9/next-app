@@ -12,7 +12,7 @@ export async function setCookie(key, value){
     const mxage = (key == 'otp_token')? 60 * 10 : 100000 * 60 * 60 * 24 * 7;
     (await cookies()).set(key, value,{
         secure: true,
-        //secure: process.env.NODE_ENV === 'production',
+        //secure: process.env.NODE_ENV === 'production',  
         maxAge: mxage,
         sameSite: true,
     });
