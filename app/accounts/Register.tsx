@@ -25,8 +25,8 @@ const create = () =>{
     API.account({"params": APIURL.resgiter(), "postdata": formData})
     .then((data) =>{
         console.log(data);
-        //deleteCookie();
-        //setCookie(data.token);
+        //deleteCookie("otp_token");
+        //setCookie("otp_token", data.token);
         //router.push('/meeting');
     })
     .catch(err => {

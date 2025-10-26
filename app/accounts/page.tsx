@@ -2,9 +2,23 @@
 import React, { useState, useEffect } from 'react';
 import Login from './Login';
 import Register from './Register';
+import VerifyOtp from './VerifyOtp';
+import { getCookie, setCookie, deleteCookie } from "../lib/cookie";
 
 const Accounts = () => {
   const [value, setValue] = useState(false)
+  const [otp, setOtp] = useState(false)
+  useEffect(() => {
+    checkotpverify();
+  },[])
+
+  const checkotpverify = async() =>{
+    if(await getCookie("otp_token")){
+        setOtp(true);
+    }else{
+        setOtp(true);
+    }
+  }
 
   return (
     <section className="h-full dark:bg-neutral-700">
@@ -36,8 +50,9 @@ const Accounts = () => {
                       "linear-gradient(to right, #292725ff, #343131ff, #401f2cff, #413d40ff)",
                   }}>
                     {
-                      //  !isLogin ? <Login switchPage={switchPage} /> : <Register switchPage={switchPage} />
-                      !value ? <Login value={value} setValue={setValue} /> : <Register value={value} setValue={setValue} />
+                      !otp ?
+                        !value ? <Login value={value} setValue={setValue} /> : <Register value={value} setValue={setValue} />
+                      : <VerifyOtp value={value} setValue={setValue} />
                     }
                 </div>
             </div>

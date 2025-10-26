@@ -23,12 +23,18 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 };
 
 const login = async() => {
+    const otpauth = await getCookie("otp_token");
+    //console.log(otpauth);
+    if(!otpauth){
+        console.log('Not found');
+    }else{
+        console.log('SUCCESS');
+    }
     API.account({"params": APIURL.login(), "postdata": formData})
         .then((data) =>{
-            deleteCookie();
-            setCookie(data.response.token);
-            //console.log(getCookie());
-            router.push('/meeting');
+            deleteCookie("auth_token");
+            setCookie("auth_token", data.response.token);
+            //router.push('/meeting');
         })
         .catch(err => {
             console.log(err);
