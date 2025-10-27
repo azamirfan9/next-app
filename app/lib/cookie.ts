@@ -2,9 +2,12 @@
 import { cookies } from "next/headers";
 
 export async function getCookie(key){
-    const cookie = (await cookies()).get(key);
+    const cookieStore = await cookies();
+    const myCookie = cookieStore.get(key);
+    return myCookie;
+    //const cookie = (await cookies()).get(key);
 
-    return cookie?.value;
+    //return cookie?.value;
 }
 
 export async function setCookie(key, value){

@@ -9,6 +9,7 @@ const Accounts = () => {
   const [value, setValue] = useState(false)
   const [otp, setOtp] = useState(false)
   useEffect(() => {
+    //setCookie('otp_token','This is your main content area');
     checkotpverify();
   },[])
 
@@ -16,7 +17,7 @@ const Accounts = () => {
     if(await getCookie("otp_token")){
         setOtp(true);
     }else{
-        setOtp(true);
+        setOtp(false);
     }
   }
 
@@ -51,7 +52,7 @@ const Accounts = () => {
                   }}>
                     {
                       !otp ?
-                        !value ? <Login value={value} setValue={setValue} /> : <Register value={value} setValue={setValue} />
+                        !value ? <Login value={value} setValue={setValue} /> : <Register value={value} setValue={setValue} otp={otp} setOtp={setOtp} />
                       : <VerifyOtp value={value} setValue={setValue} />
                     }
                 </div>

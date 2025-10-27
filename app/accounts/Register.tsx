@@ -1,6 +1,8 @@
 interface Props {
   value: boolean
   setValue: Dispatch<SetStateAction<boolean>>
+  otp: boolean
+  setOtp: Dispatch<SetStateAction<boolean>>
 }
 
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
@@ -25,9 +27,9 @@ const create = () =>{
     API.account({"params": APIURL.resgiter(), "postdata": formData})
     .then((data) =>{
         console.log(data);
-        //deleteCookie("otp_token");
-        //setCookie("otp_token", data.token);
-        //router.push('/meeting');
+        deleteCookie("otp_token");
+        setCookie("otp_token", data.token);
+        props.setOtp(true)
     })
     .catch(err => {
         console.log(err);

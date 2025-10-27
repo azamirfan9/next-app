@@ -37,19 +37,20 @@ exports.createUser = (req, res) => {
 };
 
 exports.otpVerify = (req, res) => {
-    console.log(req.body.postdata.otp);
-    const otp = req.body.postdata.otp+req.user.userId;
-    Users.findOne({
-        where: {otp: otp}
-    })
-    .then(result => {
-        result.otp = '0';
-        result.save();
-        return res.json({
-            status: true,
-            response: "Account was verified successfully",
-        });
-    }).catch((error) => {
-        console.log(error);
-    })
+    console.log('OKKKK');
+    console.log(req.headers.authorization);
+    // const otp = req.body.postdata.otp+req.user.userId;
+    // Users.findOne({
+    //     where: {otp: otp}
+    // })
+    // .then(result => {
+    //     result.otp = '0';
+    //     result.save();
+    //     return res.json({
+    //         status: true,
+    //         response: "Account was verified successfully",
+    //     });
+    // }).catch((error) => {
+    //     console.log(error);
+    // })
 };

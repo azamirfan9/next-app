@@ -13,10 +13,26 @@ import { useRouter } from 'next/navigation';
 
 const VerifyOtp = (props: Props) => {
 const router = useRouter();
-const [formData, setFormData] = useState({email: '', password: ''});
+const [formData, setFormData] = useState({otp: ''});
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
+    const { name, value } = e.target;
+    setFormData(prev => ({
+        ...prev,
+        [name]: value
+    }));
 };
+
+const verify = () => {
+    //setCookie('otp_token','This is your main content area');
+    API.account({"params": APIURL.otpVerify(), "postdata": formData})
+    .then((data) =>{
+        console.log(data);
+        //deleteCookie("otp_token");
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
 
   return (
     <div>
@@ -39,7 +55,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 />
 
                 <div>
-                    <button type="button"  className="flex items-center justify-center w-full mt-2 py-3 focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900">
+                    <button type="button" onClick={() => verify()} className="flex items-center justify-center w-full mt-2 py-3 focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900">
                         VERIFY
                     </button>
                 </div>

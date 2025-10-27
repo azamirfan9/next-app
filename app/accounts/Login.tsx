@@ -23,13 +23,6 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 };
 
 const login = async() => {
-    const otpauth = await getCookie("otp_token");
-    //console.log(otpauth);
-    if(!otpauth){
-        console.log('Not found');
-    }else{
-        console.log('SUCCESS');
-    }
     API.account({"params": APIURL.login(), "postdata": formData})
         .then((data) =>{
             deleteCookie("auth_token");

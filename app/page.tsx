@@ -8,9 +8,6 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
-        deleteCookie();
-        setCookie('This is your main content area');
-        console.log(getCookie());
         router.push('/users/new');
 
     }, []);
