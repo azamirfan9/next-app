@@ -1,13 +1,14 @@
 import { getCookie, setCookie, deleteCookie } from "../lib/cookie";
 const api = {
     account: async function(formData){
-        console.log(getCookie("otp_token"));
+        const otptoken = await getCookie("otp_token");
         try{
+            console.log(otptoken);
             const response = await fetch('http://localhost:5000/account',{
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getCookie("otp_token")}`,
+                'Authorization': `Bearer ${otptoken}`,
                 },
                 body: JSON.stringify(formData),
             });

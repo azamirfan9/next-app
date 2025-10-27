@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export async function getCookie(key){
     const cookieStore = await cookies();
     const myCookie = cookieStore.get(key);
-    return myCookie;
+    return myCookie?.value;
     //const cookie = (await cookies()).get(key);
 
     //return cookie?.value;

@@ -9,6 +9,7 @@ const Accounts = () => {
   const [value, setValue] = useState(false)
   const [otp, setOtp] = useState(false)
   useEffect(() => {
+    deleteCookie('otp_token');
     //setCookie('otp_token','This is your main content area');
     checkotpverify();
   },[])

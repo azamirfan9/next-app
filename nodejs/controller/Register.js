@@ -19,7 +19,7 @@ exports.createUser = (req, res) => {
     newUser.otp = '0';
     Users.create(newUser)
     .then((result) => {
-        result.otp = helper.generateOtp()+result.id;
+        result.otp = "" + helper.generateOtp() + result.id;
         result.save();
         return res.json({
             status: true,
@@ -37,9 +37,9 @@ exports.createUser = (req, res) => {
 };
 
 exports.otpVerify = (req, res) => {
-    console.log('OKKKK');
     console.log(req.headers.authorization);
-    // const otp = req.body.postdata.otp+req.user.userId;
+    const otp = req.body.postdata.otp+req.user.userId;
+    console.log(otp);
     // Users.findOne({
     //     where: {otp: otp}
     // })
