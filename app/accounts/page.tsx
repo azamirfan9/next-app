@@ -5,15 +5,18 @@ import Register from './Register';
 import VerifyOtp from './VerifyOtp';
 import QRCodeGenerator from '../components/QRCodeGenerator';
 import { getCookie, setCookie, deleteCookie } from "../lib/cookie";
+import io from 'socket.io-client';
+const socket = io('http://localhost:5000');
 
 const Accounts = () => {
   const [value, setValue] = useState(false)
   const [otp, setOtp] = useState(false)
   const [qrContent, setQrContent] = useState('https://example.com');
   useEffect(() => {
-    deleteCookie('otp_token');
-    setCookie('otp_token','This is your main content area');
-    checkotpverify();
+    socket.emit('chat message', 'Hello JS');
+    // deleteCookie('otp_token');
+    // setCookie('otp_token','This is your main content area');
+    // checkotpverify();
   },[])
 
   const checkotpverify = async() =>{
