@@ -18,7 +18,12 @@ function initializeSocket(server) {
 
     socket.on('chat message', (msg) => {
       console.log('message:', msg);
-      io.emit('chat message', msg); // Broadcast the message to all connected clients
+      io.emit('chat message', 'Thank You'); // Broadcast the message to all connected clients
+    });
+
+    socket.on('account_verify', (msg) => {
+      console.log('message:', msg);
+      io.emit('account_verify', 'Thank You'); // Broadcast the message to all connected clients
     });
   });
 

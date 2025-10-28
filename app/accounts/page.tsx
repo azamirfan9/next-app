@@ -3,25 +3,32 @@ import React, { useState, useEffect } from 'react';
 import Login from './Login';
 import Register from './Register';
 import VerifyOtp from './VerifyOtp';
+import Thankyou from './ThankyouPage';
 import QRCodeGenerator from '../components/QRCodeGenerator';
 import { getCookie, setCookie, deleteCookie } from "../lib/cookie";
 import io from 'socket.io-client';
-const socket = io('http://localhost:5000');
+const socket = io('http://192.168.40.96:5000');
 
 const Accounts = () => {
   const [value, setValue] = useState(false)
   const [otp, setOtp] = useState(false)
-  const [qrContent, setQrContent] = useState('https://example.com');
+  const [activated, setActivated] = useState(false)
+  const [qrContent, setQrContent] = useState('http://192.168.40.96:3000');
   useEffect(() => {
-    socket.emit('chat message', 'Hello JS');
+    //socket.emit('chat message', 'Hello JS');
+    socket.on('account_verify', (msg) => {
+      console.log(msg);
+      setActivated(true);
+    });
     // deleteCookie('otp_token');
-    // setCookie('otp_token','This is your main content area');
-    // checkotpverify();
+    setCookie('otp_token','This is your main content area');
+    checkotpverify();
   },[])
 
   const checkotpverify = async() =>{
     if(await getCookie("otp_token")){
         setOtp(true);
+        //socket.emit('account_verify', 'Hello JS');
     }else{
         setOtp(false);
     }
@@ -58,9 +65,10 @@ const Accounts = () => {
                   }}>
                     {
                       !otp ?
-                        !value ? <Login value={value} setValue={setValue} /> : <Register value={value} setValue={setValue} otp={otp} setOtp={setOtp} />
-                      // : <VerifyOtp value={value} setValue={setValue} />
-                      : <QRCodeGenerator data={qrContent} width={300} />
+                        !value ? 
+                          <Login value={value} setValue={setValue} /> : <Register value={value} setValue={setValue} otp={otp} setOtp={setOtp} />
+                        : !activated ? <QRCodeGenerator data={qrContent} width={200} />
+                          : <Thankyou />
                     }
                 </div>
             </div>
