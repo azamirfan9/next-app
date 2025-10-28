@@ -3,14 +3,16 @@ import React, { useState, useEffect } from 'react';
 import Login from './Login';
 import Register from './Register';
 import VerifyOtp from './VerifyOtp';
+import QRCodeGenerator from '../components/QRCodeGenerator';
 import { getCookie, setCookie, deleteCookie } from "../lib/cookie";
 
 const Accounts = () => {
   const [value, setValue] = useState(false)
   const [otp, setOtp] = useState(false)
+  const [qrContent, setQrContent] = useState('https://example.com');
   useEffect(() => {
     deleteCookie('otp_token');
-    //setCookie('otp_token','This is your main content area');
+    setCookie('otp_token','This is your main content area');
     checkotpverify();
   },[])
 
@@ -54,7 +56,8 @@ const Accounts = () => {
                     {
                       !otp ?
                         !value ? <Login value={value} setValue={setValue} /> : <Register value={value} setValue={setValue} otp={otp} setOtp={setOtp} />
-                      : <VerifyOtp value={value} setValue={setValue} />
+                      // : <VerifyOtp value={value} setValue={setValue} />
+                      : <QRCodeGenerator data={qrContent} width={300} />
                     }
                 </div>
             </div>

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+const initializeSocket = require('./socket/socket');
 const Mailer = require('./mailer/Mailer');
 const m2 = new Mailer();
 //m2.startMail();
@@ -40,6 +41,7 @@ const routes = require('./routes/routes');
 app.use('/', routes);
 
 const server = http.createServer(app);
+initializeSocket(server);
 
 server.listen(port, () => {
    console.log("listening on *:5000");

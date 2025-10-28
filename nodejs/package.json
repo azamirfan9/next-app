@@ -21,7 +21,8 @@
     "md5": "^2.3.0",
     "mysql2": "^3.15.0",
     "nodemailer": "^7.0.9",
-    "sequelize": "^6.37.7"
+    "sequelize": "^6.37.7",
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
