@@ -1,8 +1,8 @@
 'use client'
 import Image from "next/image";
 import React, { useState, useEffect } from 'react';
-import Thankyou from './accounts/ThankyouPage';
-import { getCookie, setCookie, deleteCookie } from "./lib/cookie";
+import Thankyou from '../ThankyouPage';
+import { getCookie, setCookie, deleteCookie } from "../../lib/cookie";
 import { useRouter } from 'next/navigation';
 import io from 'socket.io-client';
 const socket = io('http://192.168.40.96:5000');

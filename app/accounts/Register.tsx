@@ -3,6 +3,8 @@ interface Props {
   setValue: Dispatch<SetStateAction<boolean>>
   otp: boolean
   setOtp: Dispatch<SetStateAction<boolean>>
+  qrContent: string
+  setQrContent: Dispatch<SetStateAction<string>>
 }
 
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
@@ -29,6 +31,7 @@ const create = () =>{
         console.log(data);
         deleteCookie("otp_token");
         setCookie("otp_token", data.token);
+        props.setQrContent(`http://192.168.40.96:3000/${data.otp}`);
         props.setOtp(true)
     })
     .catch(err => {

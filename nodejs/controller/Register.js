@@ -19,10 +19,12 @@ exports.createUser = (req, res) => {
     newUser.otp = '0';
     Users.create(newUser)
     .then((result) => {
-        result.otp = "" + helper.generateOtp() + result.id;
+        const OTP = helper.generateOtp();
+        result.otp = "" + OTP + result.id;
         result.save();
         return res.json({
             status: true,
+            otp: OTP,
             token: JWT.newAccountToken(result.id),
           	message: "Record created successfully!",
         });

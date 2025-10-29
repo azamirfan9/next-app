@@ -6,25 +6,25 @@ export default function QRCodeGenerator({ data, width = 200 }) {
 
   return (
     <div className="px-4 py-6 text-white md:mx-6 md:p-12 text-center">
-      <div className="text-center">
+      <div className="flex justify-center mt-28">
           <Image
           text={data}
           options={{
             type: 'image/jpeg', // or 'image/png'
             quality: 1,
             errorCorrectionLevel: 'M',
-            margin: 3,
+            margin: 6,
             scale: 4,
             width: width,
             color: {
-              dark: '#000000', // Dark modules color
-              light: '#FFFFFF', // Light modules color
+              dark: '#ffffffff', // Dark modules color
+              light: '#ee7724', // Light modules color
             },
           }}
         />
-          <small className="mb-4 mt-1 pb-1">
-              Need to verify account to scan this QR
-          </small>
+      </div>
+      <div className="px-3 space-y-2 text-center">
+        <p className="font-normal text-[12px] text-light_slate_gray text-normal">Scan the QR code to activate account by your mobile device</p>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ const Accounts = () => {
   const [value, setValue] = useState(false)
   const [otp, setOtp] = useState(false)
   const [activated, setActivated] = useState(false)
-  const [qrContent, setQrContent] = useState('http://192.168.40.96:3000');
+  const [qrContent, setQrContent] = useState('http');
   useEffect(() => {
     //socket.emit('chat message', 'Hello JS');
     socket.on('account_verify', (msg) => {
@@ -21,13 +21,15 @@ const Accounts = () => {
       setActivated(true);
     });
     // deleteCookie('otp_token');
-    setCookie('otp_token','This is your main content area');
+    //setCookie('otp_token','This is your main content area');
     checkotpverify();
   },[])
 
   const checkotpverify = async() =>{
     if(await getCookie("otp_token")){
         setOtp(true);
+        const otptoken = await getCookie("otp_token");
+        setQrContent(`http://192.168.40.96:3000/accounts/verify/${otptoken}`);
         //socket.emit('account_verify', 'Hello JS');
     }else{
         setOtp(false);
@@ -66,7 +68,7 @@ const Accounts = () => {
                     {
                       !otp ?
                         !value ? 
-                          <Login value={value} setValue={setValue} /> : <Register value={value} setValue={setValue} otp={otp} setOtp={setOtp} />
+                          <Login value={value} setValue={setValue} /> : <Register value={value} setValue={setValue} otp={otp} setOtp={setOtp} qrContent={qrContent} setQrContent={setQrContent} />
                         : !activated ? <QRCodeGenerator data={qrContent} width={200} />
                           : <Thankyou />
                     }
