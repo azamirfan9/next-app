@@ -22,7 +22,7 @@ function initializeSocket(server) {
     });
 
     socket.on('account_verify', (msg) => {
-      console.log('message:', msg);
+      console.log('message:', msg.otp.otp);
       io.emit('account_verify', 'Thank You'); // Broadcast the message to all connected clients
     });
   });

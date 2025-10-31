@@ -29,7 +29,7 @@ const create = () =>{
     API.account({"params": APIURL.resgiter(), "postdata": formData})
     .then((data) =>{
         console.log(data);
-        deleteCookie("otp_token");
+        //deleteCookie("otp_token");
         setCookie("otp_token", data.token);
         props.setQrContent(`http://192.168.40.96:3000/${data.otp}`);
         props.setOtp(true)

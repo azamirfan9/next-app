@@ -29,8 +29,8 @@ const Accounts = () => {
     if(await getCookie("otp_token")){
         setOtp(true);
         const otptoken = await getCookie("otp_token");
-        setQrContent(`http://192.168.40.96:3000/accounts/verify/${otptoken}`);
-        //socket.emit('account_verify', 'Hello JS');
+        console.log(otptoken.token);
+        //setQrContent(`http://192.168.40.96:3000/accounts/${otptoken}`);
     }else{
         setOtp(false);
     }
