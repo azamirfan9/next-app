@@ -15,14 +15,10 @@ exports.createUser = (req, res) => {
     const newUser = req.body.postdata;
     //newUser.password = md5(helper.generatePassword());
     newUser.password = 12345;
-    //newUser.otp = helper.generateOtp();
-    newUser.otp = '0';
+    newUser.otp = helper.generateRandomNumber(16);
     Users.create(newUser)
     .then((result) => {
-        const OTP = helper.generateOtp();
-        result.otp = "" + OTP + result.id;
-        result.save();
-        const data = {token: JWT.newAccountToken(result.id), otp: OTP}
+        const data = {token: JWT.newAccountToken(result.id), otp: result.otp}
         return res.json({
             status: true,
             token: data,
@@ -55,4 +51,19 @@ exports.otpVerify = (req, res) => {
     // }).catch((error) => {
     //     console.log(error);
     // })
+};
+return exports.accountVerify = (data) => {
+    console.log(data.otp);
+    Users.findOne({
+    where: {otp: data.otp}
+    })
+    .then(result => {
+        return {
+            status: true, 
+            data: result,  
+            response: "Account was verified successfully",
+        };
+    }).catch((error) => {
+        console.log(error);
+    })
 };

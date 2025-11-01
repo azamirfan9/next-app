@@ -12,6 +12,7 @@ import TextInput from '../components/form/Input';
 import API from '../lib/api';
 import APIURL from '../lib/apiurls';
 import { getCookie, setCookie, deleteCookie } from "../lib/cookie";
+import { serverURL, clientURL } from "../lib/helper";
 import { useRouter } from 'next/navigation';
 
 const Register = (props: Props) => {
@@ -29,10 +30,14 @@ const create = () =>{
     API.account({"params": APIURL.resgiter(), "postdata": formData})
     .then((data) =>{
         console.log(data);
-        //deleteCookie("otp_token");
-        setCookie("otp_token", data.token);
-        props.setQrContent(`http://192.168.40.96:3000/${data.otp}`);
-        props.setOtp(true)
+        if(data.status == true){
+            //deleteCookie("otp_token");
+            setCookie("otp_token", data.token);
+            props.setQrContent(`${clientURL()}/accounts/${data.token.otp}`);
+            props.setOtp(true)
+        }else{
+            console.log('Something went wrong');
+        }
     })
     .catch(err => {
         console.log(err);

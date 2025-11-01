@@ -6,8 +6,9 @@ import VerifyOtp from './VerifyOtp';
 import Thankyou from './ThankyouPage';
 import QRCodeGenerator from '../components/QRCodeGenerator';
 import { getCookie, setCookie, deleteCookie } from "../lib/cookie";
+import { serverURL, clientURL } from "../lib/helper";
 import io from 'socket.io-client';
-const socket = io('http://192.168.40.96:5000');
+const socket = io(serverURL());
 
 const Accounts = () => {
   const [value, setValue] = useState(false)
@@ -20,8 +21,8 @@ const Accounts = () => {
       console.log(msg);
       setActivated(true);
     });
-    // deleteCookie('otp_token');
-    //setCookie('otp_token','This is your main content area');
+    deleteCookie('otp_token');
+    //setCookie('otp_token',{token: 'This is your main content area', otp: '12345'});
     checkotpverify();
   },[])
 
@@ -29,8 +30,9 @@ const Accounts = () => {
     if(await getCookie("otp_token")){
         setOtp(true);
         const otptoken = await getCookie("otp_token");
-        console.log(otptoken.token);
-        //setQrContent(`http://192.168.40.96:3000/accounts/${otptoken}`);
+        console.log(otptoken);
+        //setQrContent(`${clientURL()}/accounts/${otptoken.token.otp}`);
+        //setQrContent(`${clientURL()}/accounts/${otptoken.token.otp}`);
     }else{
         setOtp(false);
     }

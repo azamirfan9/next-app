@@ -3,9 +3,10 @@ import Image from "next/image";
 import React, { useState, useEffect } from 'react';
 import Thankyou from '../ThankyouPage';
 import { getCookie, setCookie, deleteCookie } from "../../lib/cookie";
+import { serverURL, clientURL } from "../../lib/helper";
 import { useParams   } from 'next/navigation';
 import io from 'socket.io-client';
-const socket = io('http://192.168.40.96:5000');
+const socket = io(serverURL());
 
 export default function Home() {
   const params = useParams<{ tag: string; item: string }>()
@@ -16,8 +17,8 @@ export default function Home() {
     const send = async () => {
       const otptoken = await getCookie("otp_token");
       console.log(otptoken);
-      socket.emit('account_verify', {'token': otptoken, 'params': params});
-      setActivated(true);
+      socket.emit('account_verify', {'params': params});
+      //setActivated(true);
     }
   
   return (
