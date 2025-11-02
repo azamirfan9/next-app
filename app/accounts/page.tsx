@@ -20,8 +20,9 @@ const Accounts = () => {
     socket.on('account_verify', (msg) => {
       console.log(msg);
       setActivated(true);
+      deleteCookie('otp_token');
     });
-    deleteCookie('otp_token');
+    //deleteCookie('otp_token');
     //setCookie('otp_token',{token: 'This is your main content area', otp: '12345'});
     checkotpverify();
   },[])
@@ -36,6 +37,10 @@ const Accounts = () => {
     }else{
         setOtp(false);
     }
+  }
+
+  const gotToLoginPage = ()=>{
+
   }
 
   return (

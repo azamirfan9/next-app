@@ -18,7 +18,7 @@ export default function Home() {
       const otptoken = await getCookie("otp_token");
       console.log(otptoken);
       socket.emit('account_verify', {'params': params});
-      //setActivated(true);
+      setActivated(true);
     }
   
   return (

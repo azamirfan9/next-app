@@ -2,6 +2,7 @@
 const { Server } = require('socket.io');
 const helper = require('../helper/helper');
 const register = require('../controller/Register');
+const AccountVerify = require('../controller/class/AccountVerify');
 
 function initializeSocket(server) {
   const io = new Server(server, {
@@ -27,8 +28,19 @@ function initializeSocket(server) {
 
     socket.on('account_verify', (msg) => {
       console.log('message:', msg.params);
-      const data = register.accountVerify(msg.params);
-      console.log(data);
+      const verify = new AccountVerify(msg.params.otp);
+      verify.verifyUser().then(result => {
+        if(result != null){
+          result.otp = '0';
+          result.status = 1;
+          result.save();
+          io.emit('account_verify', {status: true, message: "Account was verified successfully",});
+        }else{
+          io.emit('account_verify', {status: false, message: "Account was not verified successfully",});
+        }
+      }).catch((error) => {
+        io.emit('account_verify', {status: false, message: "Something went wrong!!!",});
+      })
       //io.emit('account_verify', 'Thank You'); // Broadcast the message to all connected clients
     });
   });
