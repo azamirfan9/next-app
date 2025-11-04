@@ -23,8 +23,12 @@ export default function QRCodeGenerator({ data, width = 200 }) {
           }}
         />
       </div>
-      <div className="px-3 space-y-2 text-center">
-        <p className="font-normal text-[12px] text-light_slate_gray text-normal">Scan the QR code to activate account by your mobile device</p>
+      <div className="px-3 space-y-2r">
+        <p className="font-normal text-[12px] text-light_slate_gray text-normal mt-2 text-justify">
+          Dear user this is not normal QR scanner, This is like just OTP verification Instead of sending OTP QR scan is being displayed
+          because user can feel well.
+          No need to follow more steps, just take your phone and scan this QR and proceed to activate your account yourself to click Verify button.
+        </p>
       </div>
     </div>
   );

@@ -3,16 +3,17 @@ import Image from "next/image";
 import React, { useState, useEffect } from 'react';
 import Thankyou from './accounts/ThankyouPage';
 import { getCookie, setCookie, deleteCookie } from "./lib/cookie";
+import { success, warning } from "./lib/Toaster";
+import { serverURL, clientURL } from "./lib/helper";
 import { useRouter } from 'next/navigation';
 import io from 'socket.io-client';
-const socket = io('http://192.168.40.96:5000');
+const socket = io(serverURL());
 
 export default function Home() {
   const [activated, setActivated] = useState(false)
   const router = useRouter();
   useEffect(() => {
-        //router.push('/users/new');
-
+    success('This is demo message');
     }, []);
 
     const send = async () => {

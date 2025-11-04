@@ -5,6 +5,7 @@ interface Props {
   setOtp: Dispatch<SetStateAction<boolean>>
   qrContent: string
   setQrContent: Dispatch<SetStateAction<string>>
+  joinRoom: CallableFunction
 }
 
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
@@ -14,6 +15,8 @@ import APIURL from '../lib/apiurls';
 import { getCookie, setCookie, deleteCookie } from "../lib/cookie";
 import { serverURL, clientURL } from "../lib/helper";
 import { useRouter } from 'next/navigation';
+import io from 'socket.io-client';
+const socket = io(serverURL());
 
 const Register = (props: Props) => {
 const router = useRouter();
@@ -35,6 +38,8 @@ const create = () =>{
             setCookie("otp_token", data.token);
             props.setQrContent(`${clientURL()}/accounts/${data.token.otp}`);
             props.setOtp(true)
+            props.joinRoom(data.token.otp);
+            //socket.emit('joinRoom', data.token.otp);
         }else{
             console.log('Something went wrong');
         }

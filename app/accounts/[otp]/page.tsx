@@ -4,20 +4,25 @@ import React, { useState, useEffect } from 'react';
 import Thankyou from '../ThankyouPage';
 import { getCookie, setCookie, deleteCookie } from "../../lib/cookie";
 import { serverURL, clientURL } from "../../lib/helper";
+import { success, warning } from "../../lib/Toaster";
 import { useParams   } from 'next/navigation';
 import io from 'socket.io-client';
 const socket = io(serverURL());
 
 export default function Home() {
-  const params = useParams<{ tag: string; item: string }>()
+  const params = useParams();
+  const roomName = params?.otp;
   const [activated, setActivated] = useState(false)
   useEffect(() => {
     }, []);
 
     const send = async () => {
       const otptoken = await getCookie("otp_token");
-      console.log(otptoken);
-      socket.emit('account_verify', {'params': params});
+      console.log(roomName);
+      //socket.emit('account_verify', {'params': params});
+      const message = roomName;
+      //const roomName = '0038905207678887';
+      socket.emit('account_verify', { roomName, message });
       setActivated(true);
     }
   

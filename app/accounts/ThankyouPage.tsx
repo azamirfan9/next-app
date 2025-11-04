@@ -1,3 +1,4 @@
+import Link from 'next/link';
 export default function ThankyouPage() {
   return (
     <div className="flex h-screen items-center justify-center">
@@ -10,10 +11,10 @@ export default function ThankyouPage() {
               </svg>
               <h1 className="text-4xl font-bold">Thank You !</h1>
               <p>Your account was activated Successfully</p>
-              <a href="/"
+              <Link href="/"
                   className="inline-flex items-center rounded border border-indigo-600 bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring">
                   <span className="text-sm font-medium"> Go to Login Page </span>
-              </a>
+              </Link>
           </div>
       </div>
   </div>
