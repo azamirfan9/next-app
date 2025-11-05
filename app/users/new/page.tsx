@@ -1,8 +1,15 @@
 import React from 'react'
+import Header from '../../components/navigation/Header';
+import Sidebar from '../../components/navigation/Sidebar';
 
 const NewUserPage = () => {
   return (
-    <div>NewUserPage</div>
+    <div>
+      <aside>
+        <Header />
+        <Sidebar />
+      </aside>
+    </div>
   )
 }
 
