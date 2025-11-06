@@ -27,10 +27,11 @@ const Accounts = () => {
     //   setActivated(true);
     //   deleteCookie('otp_token');
     // });
-    //deleteCookie('otp_token');
+    deleteCookie('otp_token');
     socket.on('account_verify', (message) => {
       console.log('Received message:', message);
       if(message.status == true){
+        deleteCookie('otp_token');
         setActivated(true);
         success(message.message);
       }else{

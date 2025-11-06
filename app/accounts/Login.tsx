@@ -25,9 +25,13 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 const login = async() => {
     API.account({"params": APIURL.login(), "postdata": formData})
         .then((data) =>{
-            deleteCookie("auth_token");
-            setCookie("auth_token", data.response.token);
-            //router.push('/meeting');
+            if(data.status == true){
+                console.log(data);
+                setCookie("auth_token", data.response.token);
+                router.push('/dashboard');
+            }else{
+                console.log(data);
+            }
         })
         .catch(err => {
             console.log(err);

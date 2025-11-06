@@ -17,11 +17,7 @@ export default function Home() {
     }, []);
 
     const send = async () => {
-      const otptoken = await getCookie("otp_token");
-      console.log(roomName);
-      //socket.emit('account_verify', {'params': params});
       const message = roomName;
-      //const roomName = '0038905207678887';
       socket.emit('account_verify', { roomName, message });
       setActivated(true);
     }
